@@ -1,5 +1,7 @@
 # microwave-api
 
+### To open simple Microwave app start application and go to http://localhost:8000/office
+
 ## Project preparation
 * Copy `example.env` to `.env` and fill in the values
 
