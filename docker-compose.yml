@@ -1,0 +1,43 @@
+version: "3.7"
+volumes:
+  db_volume:
+
+x-env_file: &env_file
+  env_file:
+    - ./.env
+
+x-base:
+  &base
+  <<: *env_file
+  build:
+    context: .
+    dockerfile: Dockerfile.dev
+  volumes:
+    - .:/app
+
+services:
+  backend:
+    <<: *base
+    container_name: microwave-backend
+    ports:
+      - 8000:8000
+    command: >
+      bash -c "uvicorn --host=0.0.0.0 app.main:app --reload"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7.2-rc3-alpine
+    container_name: redis
+    command: redis-server
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data:/data
+
+
+
+networks:
+  default:
+    name: backend
