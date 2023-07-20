@@ -1,0 +1,9 @@
+-r requirements.in
+
+ipdb
+ipython
+
+pytest
+pytest-asyncio
+anyio[trio]
+httpx
