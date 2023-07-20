@@ -1,4 +1,3 @@
-from datetime import datetime
 from typing import Optional
 
 from fastapi import Depends
@@ -14,4 +13,4 @@ async def get_microwave_state(
     redis: Redis = Depends(get_redis),
 ):
     microwave_state: Optional[MicrowaveState] = await get_object_from_redis(redis, REDIS_MICROWAVE_CURRENT_STATE_KEY)
-    return microwave_state or MicrowaveState(active_till=datetime.now())
+    return microwave_state or MicrowaveState()
